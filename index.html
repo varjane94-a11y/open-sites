@@ -4,130 +4,333 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Open Sites</title>
-<meta name="description" content="Простой статический сайт на GitHub Pages.">
+<meta name="description" content="Страница, опубликованная из репозитория: один файл, ноль сборки.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fbf9f6;
-    --surface: #ffffff;
-    --ink: #1c1a17;
-    --muted: #6b6560;
-    --line: #e6e0d8;
-    --accent: #9a3f2b;
+    --paper: #e7e9ee;
+    --surface: #fdfdfe;
+    --ink: #0d0f14;
+    --dim: #626878;
+    --line: #d3d7e0;
+    --signal: #0b8f4e;
+    --focus: #0d0f14;
+    --display: "Unbounded", system-ui, sans-serif;
+    --body: "Golos Text", system-ui, -apple-system, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #14120f;
-      --surface: #1c1916;
-      --ink: #f2ede6;
-      --muted: #a09890;
-      --line: #2e2923;
-      --accent: #e08363;
+      --paper: #0d0f14;
+      --surface: #151821;
+      --ink: #e8eaf0;
+      --dim: #8a90a2;
+      --line: #242836;
+      --signal: #2fd37e;
+      --focus: #e8eaf0;
     }
   }
+
   * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
   body {
     margin: 0;
-    background: var(--bg);
+    background: var(--paper);
     color: var(--ink);
-    font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
-    line-height: 1.65;
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap {
-    max-width: 680px;
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .shell {
+    max-width: 1080px;
     margin: 0 auto;
-    padding: 96px 16px 80px;
+    padding: 0 16px;
   }
-  .eyebrow {
-    font-size: 13px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 20px;
+
+  /* ---- status bar ---- */
+
+  .bar {
+    border-bottom: 1px solid var(--line);
   }
-  h1 {
-    font-family: Fraunces, Georgia, serif;
+  .bar__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .04em;
+    color: var(--dim);
+  }
+  .live {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--signal);
+  }
+  .live__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--signal);
+    animation: breathe 2.6s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .25; }
+  }
+
+  /* ---- hero ---- */
+
+  .hero {
+    padding: clamp(56px, 11vw, 128px) 0 clamp(40px, 7vw, 72px);
+  }
+  .hero__thesis {
+    font-family: var(--display);
     font-weight: 600;
-    font-size: clamp(38px, 8vw, 62px);
-    line-height: 1.08;
-    letter-spacing: -.02em;
-    margin: 0 0 20px;
+    font-size: clamp(31px, 8.2vw, 92px);
+    line-height: 1.02;
+    letter-spacing: -.035em;
+    margin: 0 0 clamp(24px, 4vw, 40px);
+    text-wrap: balance;
   }
-  .lede {
-    font-size: 19px;
-    color: var(--muted);
-    margin: 0 0 48px;
-    max-width: 52ch;
+  .hero__thesis em {
+    font-style: normal;
+    color: var(--signal);
   }
-  .rule {
-    height: 1px;
-    background: var(--line);
-    border: 0;
-    margin: 0 0 40px;
+  .hero__lede {
+    max-width: 46ch;
+    font-size: clamp(16px, 2.1vw, 19px);
+    color: var(--dim);
+    margin: 0;
   }
-  .cards {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    margin-bottom: 48px;
-  }
-  .card {
+
+  /* ---- manifest: the page describing itself ---- */
+
+  .manifest {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 22px;
+    border-radius: 4px;
+    margin-bottom: clamp(56px, 9vw, 104px);
+    overflow: hidden;
   }
-  .card h2 {
-    font-family: Fraunces, Georgia, serif;
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 8px;
+  .manifest__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--dim);
   }
-  .card p {
+  .row {
+    display: grid;
+    grid-template-columns: 116px minmax(0, 1fr);
+    gap: 16px;
+    padding: 13px 20px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 13px;
+    opacity: 0;
+    animation: rise .5s cubic-bezier(.2, .7, .3, 1) forwards;
+  }
+  .row:last-child { border-bottom: 0; }
+  .row:nth-child(2) { animation-delay: .05s; }
+  .row:nth-child(3) { animation-delay: .11s; }
+  .row:nth-child(4) { animation-delay: .17s; }
+  .row:nth-child(5) { animation-delay: .23s; }
+  .row:nth-child(6) { animation-delay: .29s; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .row__key {
+    color: var(--dim);
+    letter-spacing: .04em;
+  }
+  .row__val {
+    overflow-wrap: anywhere;
+  }
+  .row__val--ok { color: var(--signal); }
+  .row__val a {
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+  .row__val a:hover { text-decoration-color: var(--signal); }
+
+  /* ---- guides ---- */
+
+  .guides {
+    display: grid;
+    gap: clamp(28px, 4vw, 40px);
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    padding-bottom: clamp(56px, 9vw, 96px);
+  }
+  .guide__title {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: -.01em;
+    margin: 0 0 10px;
+    padding-top: 14px;
+    border-top: 2px solid var(--ink);
+  }
+  .guide__text {
     margin: 0;
     font-size: 15px;
-    color: var(--muted);
+    color: var(--dim);
   }
-  footer {
-    font-size: 14px;
-    color: var(--muted);
+  .guide__text code {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink);
   }
-  a { color: var(--accent); }
+
+  /* ---- footer ---- */
+
+  .foot {
+    border-top: 1px solid var(--line);
+  }
+  .foot__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    justify-content: space-between;
+    padding: 20px 0 40px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--dim);
+  }
+  .foot__inner a {
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+  .foot__inner a:hover { text-decoration-color: var(--signal); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .row { opacity: 1; animation: none; }
+    .live__dot { animation: none; }
+  }
 </style>
 </head>
 <body>
-  <main class="wrap">
-    <p class="eyebrow">GitHub Pages</p>
-    <h1>Open&nbsp;Sites</h1>
-    <p class="lede">
-      Простая статическая страница, опубликованная прямо из репозитория.
-      Один HTML-файл, без сборки и зависимостей — правьте
-      <code>index.html</code>, и сайт обновится через пару минут после коммита.
-    </p>
 
-    <hr class="rule">
-
-    <div class="cards">
-      <div class="card">
-        <h2>Как править</h2>
-        <p>Откройте <code>index.html</code> в репозитории, нажмите карандаш, сохраните — страница пересоберётся сама.</p>
-      </div>
-      <div class="card">
-        <h2>Свой домен</h2>
-        <p>Настройки → Pages → Custom domain: можно привязать собственный адрес вместо github.io.</p>
-      </div>
-      <div class="card">
-        <h2>Что дальше</h2>
-        <p>Добавляйте новые файлы рядом: <code>about.html</code> откроется по адресу <code>/about.html</code>.</p>
-      </div>
+  <header class="bar">
+    <div class="shell bar__inner">
+      <span class="live"><span class="live__dot" aria-hidden="true"></span>live</span>
+      <span>varjane94-a11y / open-sites</span>
     </div>
+  </header>
 
-    <footer>
-      Исходный код — <a href="https://github.com/varjane94-a11y/open-sites">varjane94-a11y/open-sites</a>
-    </footer>
+  <main class="shell">
+
+    <section class="hero">
+      <h1 class="hero__thesis">Сайт — это файл <em>в репозитории</em></h1>
+      <p class="hero__lede">
+        Ни сборки, ни сервера. В ветке <code>main</code> лежит один <code>index.html</code>,
+        GitHub Pages отдаёт его по адресу ниже. Коммит здесь и есть деплой.
+      </p>
+    </section>
+
+    <section class="manifest" aria-label="Состояние публикации">
+      <div class="manifest__head">
+        <span>манифест</span>
+        <span id="src">данные из GitHub API</span>
+      </div>
+      <div class="row">
+        <span class="row__key">адрес</span>
+        <span class="row__val"><a href="https://varjane94-a11y.github.io/open-sites/">varjane94-a11y.github.io/open-sites</a></span>
+      </div>
+      <div class="row">
+        <span class="row__key">источник</span>
+        <span class="row__val">main · /index.html</span>
+      </div>
+      <div class="row">
+        <span class="row__key">коммит</span>
+        <span class="row__val"><a id="sha" href="https://github.com/varjane94-a11y/open-sites/commits/main">…</a></span>
+      </div>
+      <div class="row">
+        <span class="row__key">сообщение</span>
+        <span class="row__val" id="msg">…</span>
+      </div>
+      <div class="row">
+        <span class="row__key">обновлён</span>
+        <span class="row__val" id="when">…</span>
+      </div>
+      <div class="row">
+        <span class="row__key">статус</span>
+        <span class="row__val row__val--ok">200 · страница отдана</span>
+      </div>
+    </section>
+
+    <section class="guides">
+      <article>
+        <h2 class="guide__title">Править</h2>
+        <p class="guide__text">Откройте <code>index.html</code> на GitHub, нажмите карандаш, сохраните. Через минуту-две адрес отдаст новую версию.</p>
+      </article>
+      <article>
+        <h2 class="guide__title">Свой домен</h2>
+        <p class="guide__text">Settings → Pages → Custom domain принимает ваш адрес вместо github.io. Сертификат выпустится сам.</p>
+      </article>
+      <article>
+        <h2 class="guide__title">Добавить страницу</h2>
+        <p class="guide__text">Положите <code>about.html</code> рядом — он откроется по <code>/about.html</code>. Структура папок повторяет адреса.</p>
+      </article>
+    </section>
+
   </main>
+
+  <footer class="foot">
+    <div class="shell foot__inner">
+      <span><a href="https://github.com/varjane94-a11y/open-sites">исходный код на GitHub</a></span>
+      <span>опубликовано через GitHub Pages</span>
+    </div>
+  </footer>
+
+<script>
+  // Страница читает собственное состояние из публичного API — без токена.
+  (async () => {
+    const el = id => document.getElementById(id);
+    try {
+      const r = await fetch('https://api.github.com/repos/varjane94-a11y/open-sites/commits/main', {
+        headers: { Accept: 'application/vnd.github+json' }
+      });
+      if (!r.ok) throw new Error(r.status);
+      const c = await r.json();
+      const short = c.sha.slice(0, 7);
+      el('sha').textContent = short;
+      el('sha').href = c.html_url;
+      el('msg').textContent = c.commit.message.split('\n')[0];
+      el('when').textContent = new Intl.DateTimeFormat('ru-RU', {
+        day: 'numeric', month: 'long', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      }).format(new Date(c.commit.committer.date));
+      el('src').textContent = 'данные из GitHub API';
+    } catch (e) {
+      el('sha').textContent = 'main';
+      el('msg').textContent = 'последняя версия в ветке main';
+      el('when').textContent = 'см. историю коммитов';
+      el('src').textContent = 'API недоступен';
+    }
+  })();
+</script>
 </body>
 </html>
