@@ -109,10 +109,6 @@
     margin: 0 0 clamp(24px, 4vw, 40px);
     text-wrap: balance;
   }
-  .hero__thesis em {
-    font-style: normal;
-    color: var(--signal);
-  }
   .hero__lede {
     max-width: 46ch;
     font-size: clamp(16px, 2.1vw, 19px);
@@ -225,6 +221,16 @@
   }
   .foot__inner a:hover { text-decoration-color: var(--signal); }
 
+  @media (max-width: 560px) {
+    .row {
+      grid-template-columns: 84px minmax(0, 1fr);
+      gap: 12px;
+      padding: 12px 14px;
+      font-size: 12px;
+    }
+    .manifest__head { padding: 11px 14px; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .row { opacity: 1; animation: none; }
     .live__dot { animation: none; }
@@ -243,7 +249,7 @@
   <main class="shell">
 
     <section class="hero">
-      <h1 class="hero__thesis">Сайт — это файл <em>в репозитории</em></h1>
+      <h1 class="hero__thesis">Сайт — это файл в репозитории</h1>
       <p class="hero__lede">
         Ни сборки, ни сервера. В ветке <code>main</code> лежит один <code>index.html</code>,
         GitHub Pages отдаёт его по адресу ниже. Коммит здесь и есть деплой.
