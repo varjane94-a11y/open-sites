@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Sites</title>
+<meta name="description" content="Простой статический сайт на GitHub Pages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbf9f6;
+    --surface: #ffffff;
+    --ink: #1c1a17;
+    --muted: #6b6560;
+    --line: #e6e0d8;
+    --accent: #9a3f2b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14120f;
+      --surface: #1c1916;
+      --ink: #f2ede6;
+      --muted: #a09890;
+      --line: #2e2923;
+      --accent: #e08363;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 96px 16px 80px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 20px;
+  }
+  h1 {
+    font-family: Fraunces, Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(38px, 8vw, 62px);
+    line-height: 1.08;
+    letter-spacing: -.02em;
+    margin: 0 0 20px;
+  }
+  .lede {
+    font-size: 19px;
+    color: var(--muted);
+    margin: 0 0 48px;
+    max-width: 52ch;
+  }
+  .rule {
+    height: 1px;
+    background: var(--line);
+    border: 0;
+    margin: 0 0 40px;
+  }
+  .cards {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    margin-bottom: 48px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .card h2 {
+    font-family: Fraunces, Georgia, serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+  .card p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  footer {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="eyebrow">GitHub Pages</p>
+    <h1>Open&nbsp;Sites</h1>
+    <p class="lede">
+      Простая статическая страница, опубликованная прямо из репозитория.
+      Один HTML-файл, без сборки и зависимостей — правьте
+      <code>index.html</code>, и сайт обновится через пару минут после коммита.
+    </p>
+
+    <hr class="rule">
+
+    <div class="cards">
+      <div class="card">
+        <h2>Как править</h2>
+        <p>Откройте <code>index.html</code> в репозитории, нажмите карандаш, сохраните — страница пересоберётся сама.</p>
+      </div>
+      <div class="card">
+        <h2>Свой домен</h2>
+        <p>Настройки → Pages → Custom domain: можно привязать собственный адрес вместо github.io.</p>
+      </div>
+      <div class="card">
+        <h2>Что дальше</h2>
+        <p>Добавляйте новые файлы рядом: <code>about.html</code> откроется по адресу <code>/about.html</code>.</p>
+      </div>
+    </div>
+
+    <footer>
+      Исходный код — <a href="https://github.com/varjane94-a11y/open-sites">varjane94-a11y/open-sites</a>
+    </footer>
+  </main>
+</body>
+</html>
